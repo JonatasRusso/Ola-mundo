@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5</title>
+</head>
+
+<body>
+    <nav>
+        <a href="./estudohtml5.html"><img src="/imagens/estudo.png" alt="livro aberto" width="100" height="100"></a>
+        <a href="./index.html"><img src="/imagens/html5.jpg" alt="HTML5 logo" width="100" height="100"></a>
+        <a href="./aboutme.html">Sobre Mim!</a>
+    </nav>
+    <h1>HTML5 - Jornada de Estudo</h1>
+    <section class="Iniciando">
+        <h2>Iniciando:<img src="/imagens/Codecademy.png" width="84" height="18"></h2>
+        <p>Assim que comecei a estudar html, eu encontrei o site do <a href="https://www.codecademy.com/"
+                target="_blank">Codecademy</a>. Um site todo em interativo que é bem útil e ensina varios tópicos e como
+            eu
+            estou escrevendo um dailyblog de estudo, eu vou acrescentar o que eu aprendi nele aqui para ir
+            <strong>"salvando
+                o conhecimento"</strong>.</p>
+        <hr>
+        <section class="caixatxt">
+            <!-- Utilizando caixa de texto com labels. utilizando o 'for' para definir para quem é a label-->
+            <label for="caixadetxt">Aqui uma caixa de texto</label>
+            <input type="text" name="teste" id="teste">
+        </section>
+        <hr>
+        <section class="caixarange">
+            <!-- Aqui tem uma caixa de range para definir algo-->
+            <label for="aprendizado">Uma caixa de range</label>
+            <br>
+            <span>Inicio</span>
+            <input type="range" name="aprendizado" id="aprendizado" value="0.5" min="1" max="5">
+            <span>Fim</span>
+        </section>
+        <hr>
+        <section class="escolha">
+            <input type="checkbox" name="escolha1" id="escolha1">
+            <label for="escolha1">Escolha 1</label>
+            <input type="checkbox" name="escolha2" id="escolha2">
+            <label for="escolha2">Escolha 2</label>
+            <input type="checkbox" name="escolha3" id="escolha3">
+            <label for="escolha3">Escolha 3</label>
+        </section>
+        <hr>
+        <section class="radio">
+            <input type="radio" name="escolha" id="1" checked>
+            <label for="escolha">Escolha 1</label>
+            <input type="radio" name="escolha" id="2">
+            <label for="escolha">Escolha 2</label>
+        </section>
+        <hr>
+        <section class="lista-selecao">
+            <label for="lista">Escolha uma fruta: </label>
+            <input list="listas" id="lista" name="lista">
+            <datalist id="listas">
+                <option value="Banana"></option>
+                <option value="Maça"></option>
+                <option value="Uva"></option>
+                <option value="Pera"></option>
+                <option value="Laranja"></option>
+                <option value="Tangerina"></option>
+                <option value="Tomate"></option>
+            </datalist>
+        </section>
+        <hr>
+        <section class="texto">
+            <label for="ideia">Quer me dar alguma ideia?</label>
+            <br>
+            <textarea id="ideia" name="ideia" rows="4"
+                cols="60">Texto inútil, eu não coleto informações daqui!!! HUAHUAHUA</textarea>
+        </section>
+        <section class="placeoq?">
+            <label for="placehold">Talvex um CPF?</label>
+            <input type="text" name="placehold" id="placehold" placeholder="123.456.789-01"
+                pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}">
+            <br>
+            <small>Formato:123.123.123-12</small>
+        </section>
+        <section class="terminar">
+            <br>
+            <input type="submit" value="Encerrar!">
+        </section>
+    </section>
+</body>
+
+</html>
