@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine # Imagem oficial do PostgreSQL, versão 15, leve
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pxg_db_data:/var/lib/postgresql/data # Volume persistente para os dados do DB
+    ports:
+      - "5432:5432" # Expõe a porta do DB para o host (opcional para local, útil para ferramentas de DB)
+    healthcheck: # Verifica se o DB está pronto
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend # Caminho para o Dockerfile do backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      API_PORT: ${API_PORT}
+      FRONTEND_URL: ${FRONTEND_URL}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: db # Nome do serviço do DB no docker-compose
+      DB_PORT: ${DB_PORT}
+    ports:
+      - "${API_PORT}:${API_PORT}" # Expõe a porta da API para o host
+    depends_on:
+      db:
+        condition: service_healthy # Garante que o DB esteja saudável antes de iniciar o backend
+    # volumes: # Opcional: para desenvolvimento, mapear o código para live-reload (requer nodemon)
+    #   - ./backend:/app
+    #   - /app/node_modules # Evita sobrescrever node_modules do container com o do host
+
+  frontend:
+    build:
+      context: ./frontend # Caminho para o Dockerfile do frontend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      # Variáveis de ambiente que o Next.js precisa no build/runtime
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    ports:
+      - "3000:3000" # Porta padrão do Next.js
+    depends_on:
+      backend:
+        condition: service_started # Garante que o backend esteja rodando antes do frontend
+    # volumes: # Opcional: para desenvolvimento, mapear o código para live-reload
+    #   - ./frontend:/app
+    #   - /app/node_modules # Evita sobrescrever node_modules do container com o do host
+
+volumes:
+  pxg_db_data: # Define o volume persistente para os dados do DB
